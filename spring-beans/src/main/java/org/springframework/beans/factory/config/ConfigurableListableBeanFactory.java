@@ -50,6 +50,12 @@ public interface ConfigurableListableBeanFactory
 	void ignoreDependencyType(Class<?> type);
 
 	/**
+     * 忽略特定类型属性的自动装配，只对接口类型的依赖项起作用:
+     * 当Spring容器创建和解析bean之间的依赖关系时，它会检查bean的依赖项是否可以通过自动装配来满足。在这个过程中，Spring默认会尝试为每个依赖项寻找匹配的bean，并尝试进行自动装配。
+     * 然而，有些依赖接口是不需要被自动装配的，它们可能是标记接口、回调接口或其它类型的接口，它们不应该作为依赖项进行处理。在这种情况下，可以使用ignoreDependencyInterface()方法来告诉Spring容器忽略这些接口。
+     * 具体而言，ignoreDependencyInterface()方法接受一个接口类作为参数，将该接口添加到忽略列表中。当Spring容器进行自动装配时，它将忽略这些接口，不会尝试为它们寻找匹配的bean进行注入。
+     * <br>
+     * <br>
 	 * Ignore the given dependency interface for autowiring.
 	 * <p>This will typically be used by application contexts to register
 	 * dependencies that are resolved in other ways, like BeanFactory through
@@ -63,6 +69,12 @@ public interface ConfigurableListableBeanFactory
 	void ignoreDependencyInterface(Class<?> ifc);
 
 	/**
+     *
+     * 当创建和解析bean的依赖关系时，Spring容器需要知道如何满足特定类型的依赖项。通常情况下，Spring通过查找和自动装配相应类型的bean来满足依赖项。然而，有些依赖项可能无法通过bean的自动装配来满足，或者我们希望手动提供这些依赖项。
+     * registerResolvableDependency()方法的作用就是注册这些可解析的依赖项，告诉Spring容器如何满足它们，而不需要进行自动装配。
+     * 具体而言，registerResolvableDependency()方法接受两个参数：依赖项的类型（Class<?>）和依赖项的实例（Object）。通过调用这个方法，我们可以将一个依赖项的类型和实例注册到Spring容器中。
+     * <p>
+     * <p>
 	 * Register a special dependency type with corresponding autowired value.
 	 * <p>This is intended for factory/context references that are supposed
 	 * to be autowirable but are not defined as beans in the factory:
